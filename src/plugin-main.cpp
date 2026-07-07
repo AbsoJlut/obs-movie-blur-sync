@@ -745,7 +745,6 @@ void obs_module_unload(void)
 		g_dock->deleteLater();
 		g_dock = nullptr;
 	}
-	g_action = nullptr;
 }
 
 #include "plugin-main.moc"
