@@ -12,9 +12,7 @@ find_package(libobs REQUIRED)
 find_package(obs-frontend-api REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Network)
 
-add_library(${CMAKE_PROJECT_NAME} MODULE)
-
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+add_library(${CMAKE_PROJECT_NAME} MODULE
   src/plugin-main.cpp
 )
 
