@@ -1,10 +1,10 @@
-# Movie Blur Sync OBS DLL plugin — v0.1 source
+# AbsoJlut AutoBlur Raspberry OBS DLL plugin — v0.1 source
 
-Это исходники настоящего OBS-плагина DLL для Movie Blur Sync.
+Это исходники настоящего OBS-плагина DLL для AbsoJlut AutoBlur Raspberry.
 
 ## Что делает DLL
 
-- Добавляет dock-панель `Movie Blur Sync` прямо в OBS.
+- Добавляет dock-панель `AbsoJlut AutoBlur Raspberry` прямо в OBS.
 - Запускает локальный bridge-сервер `http://127.0.0.1:8799/push` внутри OBS-процесса.
 - Получает `video.currentTime` из Raspberry/ReYohoho через Tampermonkey userscript.
 - Включает/выключает выбранный OBS-фильтр блюра напрямую через libobs, без obs-websocket и без OCR.
@@ -33,7 +33,7 @@
 4. После сборки положить:
 
 ```text
-obs-movie-blur-sync.dll
+absojlut-autoblur-raspberry.dll
 ```
 
 в папку OBS-плагинов, обычно:

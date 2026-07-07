@@ -1,12 +1,12 @@
 {
   "dependencies": {
     "obs-studio": {
-      "version": "31.1.1",
+      "version": "32.1.1",
       "baseUrl": "https://github.com/obsproject/obs-studio/archive/refs/tags",
       "label": "OBS sources",
       "hashes": {
         "macos": "39751f067bacc13d44b116c5138491b5f1391f91516d3d590d874edd21292291",
-        "windows-x64": "2c8427c10b55ac6d68008df2e9a3e82f4647aaad18f105e30d4713c2de678ccf"
+        "windows-x64": "8df772feae7efbf6e36fd38205e95bbc691f588be2705949226c34ba9f036b10"
       }
     },
     "prebuilt": {
@@ -33,13 +33,13 @@
   },
   "platformConfig": {
     "macos": {
-      "bundleId": "ru.kotya.obs-movie-blur-sync"
+      "bundleId": "ru.kotya.absojlut-autoblur-raspberry"
     }
   },
-  "name": "obs-movie-blur-sync",
-  "displayName": "Movie Blur Sync",
-  "version": "0.1.0",
+  "name": "absojlut-autoblur-raspberry",
+  "displayName": "AbsoJlut AutoBlur Raspberry",
+  "version": "0.1.1",
   "author": "AbsoJlut",
-  "website": "https://github.com/AbsoJlut/obs-movie-blur-sync",
+  "website": "https://github.com/AbsoJlut/absojlut-autoblur-raspberry",
   "email": "absojlut@example.com"
 }

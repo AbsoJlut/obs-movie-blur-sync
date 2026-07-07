@@ -38,15 +38,15 @@
 #include <vector>
 
 OBS_DECLARE_MODULE()
-OBS_MODULE_USE_DEFAULT_LOCALE("obs-movie-blur-sync", "en-US")
+OBS_MODULE_USE_DEFAULT_LOCALE("absojlut-autoblur-raspberry", "en-US")
 MODULE_EXPORT const char *obs_module_description(void)
 {
-	return "Movie Blur Sync: Raspberry/ReYohoho video bridge -> OBS blur filter";
+	return "AbsoJlut AutoBlur Raspberry: Raspberry/ReYohoho video bridge -> OBS blur filter";
 }
 
 namespace {
 constexpr int kBridgePort = 8799;
-constexpr const char *kPluginName = "Movie Blur Sync";
+constexpr const char *kPluginName = "AbsoJlut AutoBlur Raspberry";
 
 struct Interval {
 	int start = 0;
@@ -306,7 +306,7 @@ private:
 			return;
 		}
 		if (method == "GET" && (path == "/status" || path == "/")) {
-			writeResponse(socket, R"({"ok":true,"plugin":"Movie Blur Sync","mode":"dll","has_time":true})");
+			writeResponse(socket, R"({"ok":true,"plugin":"AbsoJlut AutoBlur Raspberry","mode":"dll","has_time":true})");
 			return;
 		}
 		if (method != "POST" || path != "/push") {
@@ -725,20 +725,20 @@ void *g_action = nullptr;
 
 bool obs_module_load(void)
 {
-	blog(LOG_INFO, "[Movie Blur Sync] loading DLL plugin");
+	blog(LOG_INFO, "[AbsoJlut AutoBlur Raspberry] loading DLL plugin");
 	if (!QApplication::instance()) {
-		blog(LOG_WARNING, "[Movie Blur Sync] QApplication is not available");
+		blog(LOG_WARNING, "[AbsoJlut AutoBlur Raspberry] QApplication is not available");
 		return true;
 	}
 	g_dock = new MovieBlurDock();
 	g_action = obs_frontend_add_dock(g_dock);
-	blog(LOG_INFO, "[Movie Blur Sync] dock added");
+	blog(LOG_INFO, "[AbsoJlut AutoBlur Raspberry] dock added");
 	return true;
 }
 
 void obs_module_unload(void)
 {
-	blog(LOG_INFO, "[Movie Blur Sync] unloading DLL plugin");
+	blog(LOG_INFO, "[AbsoJlut AutoBlur Raspberry] unloading DLL plugin");
 	if (g_dock) {
 		g_dock->deleteLater();
 		g_dock = nullptr;

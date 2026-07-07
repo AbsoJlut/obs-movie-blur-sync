@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Movie Blur Sync Video Bridge + Player Overlay
+// @name         AbsoJlut AutoBlur Raspberry Video Bridge + Player Overlay
 // @namespace    movie-blur-sync
 // @version      3.0
-// @description  Sends HTML5 video.currentTime to local Movie Blur Sync app and shows title/timer overlay attached to the stable video root, not hidden with player controls. Better title filtering. OBS Dock app v3.0 compatible.
+// @description  Sends HTML5 video.currentTime to local AbsoJlut AutoBlur Raspberry app and shows title/timer overlay attached to the stable video root, not hidden with player controls. Better title filtering. OBS Dock app v3.0 compatible.
 // @match        *://*/*
 // @run-at       document-idle
 // @grant        GM_xmlhttpRequest
