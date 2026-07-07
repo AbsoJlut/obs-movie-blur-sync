@@ -205,13 +205,14 @@ QStringList enumFilters(const QString &sourceName)
     QStringList names;
     obs_source_t *source = sourceByName(sourceName);
     if (!source) return names;
+
     obs_source_enum_filters(source, [](obs_source_t *parent, obs_source_t *filter, void *data) {
         Q_UNUSED(parent);
         auto *list = static_cast<QStringList *>(data);
         const char *name = obs_source_get_name(filter);
         if (name && *name) list->append(QString::fromUtf8(name));
-        return true;
     }, &names);
+
     obs_source_release(source);
     names.removeDuplicates();
     names.sort(Qt::CaseInsensitive);
