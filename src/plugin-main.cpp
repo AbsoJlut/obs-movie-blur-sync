@@ -306,7 +306,9 @@ private:
 			return;
 		}
 		if (method == "GET" && (path == "/status" || path == "/")) {
-			writeResponse(socket, R"({"ok":true,"plugin":"AbsoJlut AutoBlur Raspberry","mode":"dll","has_time":true})");
+			writeResponse(
+				socket,
+				R"({"ok":true,"plugin":"AbsoJlut AutoBlur Raspberry","mode":"dll","has_time":true})");
 			return;
 		}
 		if (method != "POST" || path != "/push") {
@@ -719,7 +721,7 @@ private slots:
 };
 
 MovieBlurDock *g_dock = nullptr;
-void *g_action = nullptr;
+bool g_dock_added = false;
 
 } // namespace
 
@@ -731,7 +733,7 @@ bool obs_module_load(void)
 		return true;
 	}
 	g_dock = new MovieBlurDock();
-	g_action = obs_frontend_add_dock(g_dock);
+	g_dock_added = obs_frontend_add_custom_qdock("absojlut-autoblur-raspberry", g_dock);
 	blog(LOG_INFO, "[AbsoJlut AutoBlur Raspberry] dock added");
 	return true;
 }
