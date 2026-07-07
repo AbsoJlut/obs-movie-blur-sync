@@ -1,59 +1,50 @@
-# OBS Plugin Template
+# Movie Blur Sync OBS DLL plugin — v0.1 source
 
-## Introduction
+Это исходники настоящего OBS-плагина DLL для Movie Blur Sync.
 
-The plugin template is meant to be used as a starting point for OBS Studio plugin development. It includes:
+## Что делает DLL
 
-* Boilerplate plugin source code
-* A CMake project file
-* GitHub Actions workflows and repository actions
+- Добавляет dock-панель `Movie Blur Sync` прямо в OBS.
+- Запускает локальный bridge-сервер `http://127.0.0.1:8799/push` внутри OBS-процесса.
+- Получает `video.currentTime` из Raspberry/ReYohoho через Tampermonkey userscript.
+- Включает/выключает выбранный OBS-фильтр блюра напрямую через libobs, без obs-websocket и без OCR.
+- Поддерживает интервалы:
 
-## Supported Build Environments
+```text
+00:12-00:28
+00:38:44-00:39:10
+01:04:10-01:05:00
+```
 
-| Platform  | Tool   |
-|-----------|--------|
-| Windows   | Visual Studio 17 2022 |
-| macOS     | XCode 16.0 |
-| Windows, macOS  | CMake 3.30.5 |
-| Ubuntu 24.04 | CMake 3.28.3 |
-| Ubuntu 24.04 | `ninja-build` |
-| Ubuntu 24.04 | `pkg-config`
-| Ubuntu 24.04 | `build-essential` |
+## Важно
 
-## Quick Start
+Архив содержит исходники, а не готовую DLL. Сборка Windows DLL требует OBS SDK/OBS plugin template, Visual Studio 2022, CMake и Qt той версии, с которой собран OBS.
 
-An absolute bare-bones [Quick Start Guide](https://github.com/obsproject/obs-plugintemplate/wiki/Quick-Start-Guide) is available in the wiki.
+## Как собрать через OBS plugin template
 
-## Documentation
+Самый надёжный путь:
 
-All documentation can be found in the [Plugin Template Wiki](https://github.com/obsproject/obs-plugintemplate/wiki).
+1. Создать новый репозиторий из официального `obsproject/obs-plugintemplate`.
+2. Заменить/добавить файлы из этого архива:
+   - `src/plugin-main.cpp`
+   - `CMakeLists.txt` или перенести зависимости `Qt6::Core`, `Qt6::Widgets`, `Qt6::Network` в CMake template.
+   - `scripts/video_time_bridge.user.js`
+3. Собрать на Windows через Visual Studio 2022/CMake или GitHub Actions template.
+4. После сборки положить:
 
-Suggested reading to get up and running:
+```text
+obs-movie-blur-sync.dll
+```
 
-* [Getting started](https://github.com/obsproject/obs-plugintemplate/wiki/Getting-Started)
-* [Build system requirements](https://github.com/obsproject/obs-plugintemplate/wiki/Build-System-Requirements)
-* [Build system options](https://github.com/obsproject/obs-plugintemplate/wiki/CMake-Build-System-Options)
+в папку OBS-плагинов, обычно:
 
-## GitHub Actions & CI
+```text
+C:\Program Files\obs-studio\obs-plugins\64bit\
+```
 
-Default GitHub Actions workflows are available for the following repository actions:
+Tampermonkey-скрипт `scripts/video_time_bridge.user.js` поставить в браузере, как в v2/v3.
 
-* `push`: Run for commits or tags pushed to `master` or `main` branches.
-* `pr-pull`: Run when a Pull Request has been pushed or synchronized.
-* `dispatch`: Run when triggered by the workflow dispatch in GitHub's user interface.
-* `build-project`: Builds the actual project and is triggered by other workflows.
-* `check-format`: Checks CMake and plugin source code formatting and is triggered by other workflows.
+## Почему пока исходники
 
-The workflows make use of GitHub repository actions (contained in `.github/actions`) and build scripts (contained in `.github/scripts`) which are not needed for local development, but might need to be adjusted if additional/different steps are required to build the plugin.
+В этой среде нет Windows OBS SDK/Visual Studio/Qt сборочного окружения, поэтому я не могу честно выдать проверенную `.dll`. Этот архив — основа для сборки DLL на Windows или в GitHub Actions.
 
-### Retrieving build artifacts
-
-Successful builds on GitHub Actions will produce build artifacts that can be downloaded for testing. These artifacts are commonly simple archives and will not contain package installers or installation programs.
-
-### Building a Release
-
-To create a release, an appropriately named tag needs to be pushed to the `main`/`master` branch using semantic versioning (e.g., `12.3.4`, `23.4.5-beta2`). A draft release will be created on the associated repository with generated installer packages or installation programs attached as release artifacts.
-
-## Signing and Notarizing on macOS
-
-Basic concepts of codesigning and notarization on macOS are explained in the correspodning [Wiki article](https://github.com/obsproject/obs-plugintemplate/wiki/Codesigning-On-macOS) which has a specific section for the [GitHub Actions setup](https://github.com/obsproject/obs-plugintemplate/wiki/Codesigning-On-macOS#setting-up-code-signing-for-github-actions).
