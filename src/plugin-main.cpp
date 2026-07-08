@@ -345,14 +345,15 @@ private:
 	}
 };
 
-class MovieBlurDock final : public QDockWidget {
+class MovieBlurDock final : public QWidget {
 	Q_OBJECT
 public:
 	explicit MovieBlurDock(QWidget *parent = nullptr)
 		: QDockWidget(QString::fromUtf8(kPluginName), parent),
 		  settings_("MovieBlurSync", "OBSPlugin")
 	{
-		setObjectName("MovieBlurSyncDock");
+		setObjectName("AbsoJlutAutoBlurRaspberryDock");
+		setWindowTitle("AbsoJlut AutoBlur Raspberry");
 		buildUi();
 		loadSettings();
 		connectSignals();
@@ -733,7 +734,8 @@ bool obs_module_load(void)
 		return true;
 	}
 	g_dock = new MovieBlurDock();
-	g_dock_added = obs_frontend_add_custom_qdock("absojlut-autoblur-raspberry", g_dock);
+	g_dock_added =
+		obs_frontend_add_dock_by_id("absojlut-autoblur-raspberry", "AbsoJlut AutoBlur Raspberry", g_dock);
 	blog(LOG_INFO, "[AbsoJlut AutoBlur Raspberry] dock added");
 	return true;
 }
@@ -741,7 +743,11 @@ bool obs_module_load(void)
 void obs_module_unload(void)
 {
 	blog(LOG_INFO, "[AbsoJlut AutoBlur Raspberry] unloading DLL plugin");
-	if (g_dock) {
+	if (g_dock_added) {
+		obs_frontend_remove_dock("absojlut-autoblur-raspberry");
+		g_dock_added = false;
+		g_dock = nullptr;
+	} else if (g_dock) {
 		g_dock->deleteLater();
 		g_dock = nullptr;
 	}
