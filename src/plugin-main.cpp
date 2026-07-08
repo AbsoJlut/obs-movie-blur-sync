@@ -7,7 +7,6 @@
 #include <QDateTime>
 #include <QDoubleSpinBox>
 #include <QComboBox>
-#include <QDockWidget>
 #include <QElapsedTimer>
 #include <QFormLayout>
 #include <QGroupBox>
@@ -348,9 +347,7 @@ private:
 class MovieBlurDock final : public QWidget {
 	Q_OBJECT
 public:
-	explicit MovieBlurDock(QWidget *parent = nullptr)
-		: QDockWidget(QString::fromUtf8(kPluginName), parent),
-		  settings_("MovieBlurSync", "OBSPlugin")
+	explicit MovieBlurDock(QWidget *parent = nullptr) : QWidget(parent), settings_("MovieBlurSync", "OBSPlugin")
 	{
 		setObjectName("AbsoJlutAutoBlurRaspberryDock");
 		setWindowTitle("AbsoJlut AutoBlur Raspberry");
@@ -402,7 +399,7 @@ private:
 
 	void buildUi()
 	{
-		auto *root = new QWidget(this);
+		auto *root = this;
 		auto *layout = new QVBoxLayout(root);
 
 		auto *status = new QGroupBox("Статус", root);
@@ -487,9 +484,6 @@ private:
 		buttons->addWidget(pauseBtn_);
 		buttons->addWidget(stopBtn);
 		layout->addLayout(buttons);
-
-		setWidget(root);
-
 		connect(refreshSourcesBtn, &QPushButton::clicked, this, &MovieBlurDock::refreshSources);
 		connect(refreshFiltersBtn, &QPushButton::clicked, this, &MovieBlurDock::refreshFilters);
 		connect(testBlurBtn, &QPushButton::clicked, this, &MovieBlurDock::toggleBlurTest);
